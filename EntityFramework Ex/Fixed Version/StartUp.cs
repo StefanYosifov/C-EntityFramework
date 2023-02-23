@@ -21,6 +21,14 @@
             Console.WriteLine(fifthProblem);
             Console.WriteLine('\n');
 
+            string sixthProblem = AddNewAddressToEmployee(context);
+            Console.WriteLine(sixthProblem);
+            Console.WriteLine('\n');
+
+
+
+
+
         }
 
         public static string GetEmployeesFullInformation(SoftUniContext context)
@@ -78,6 +86,40 @@
             {
                 output.AppendLine($"{e.FirstName} {e.LastName} from {e.Department.Name} - ${e.Salary:F2}");
             }
+
+            return output.ToString().TrimEnd();
+        }
+
+        public static string AddNewAddressToEmployee(SoftUniContext context)
+        {
+            StringBuilder output = new StringBuilder();
+
+            Address newAddress=new Address();
+            newAddress.AddressText= "Vitoshka 15";
+            newAddress.TownId = 4;
+
+            string employeeNameToFind = "Nakov";
+            Employee? findEmployee = context.Employees.FirstOrDefault(e => e.LastName == employeeNameToFind);
+            if (findEmployee == null)
+            {
+                return "Cannot find the employee";
+            }
+            findEmployee.Address = newAddress;
+            context.SaveChanges();
+
+
+            var employeesAddress = context.Employees.Select(e => new
+            {
+                e.AddressId,
+                e.Address
+            }).OrderByDescending(e=>e.AddressId).Take(10).ToList();
+
+
+            foreach(var e in employeesAddress)
+            {
+                output.AppendLine($"{e.Address.AddressText}");
+            }
+
 
             return output.ToString().TrimEnd();
         }
