@@ -51,6 +51,15 @@
             //Console.WriteLine(twelvethProblem);
             //Console.WriteLine(Environment.NewLine);
 
+
+            //string thirtheenthProblem= GetEmployeesByFirstNameStartingWithSa(context);
+            //Console.WriteLine(thirtheenthProblem);
+            //Console.WriteLine(Environment.NewLine);
+
+            string fourteenthProblem= DeleteProjectById(context);
+            Console.WriteLine(fourteenthProblem);
+            Console.WriteLine(Environment.NewLine);
+
         }
 
         public static string GetEmployeesFullInformation(SoftUniContext context)
@@ -369,6 +378,56 @@
             }
 
             context.SaveChanges();
+            return output.ToString().TrimEnd();
+        }
+
+        public static string GetEmployeesByFirstNameStartingWithSa(SoftUniContext context)
+        {
+            StringBuilder output = new StringBuilder();
+
+            var employees = context.Employees
+                .Select(e => new
+                {
+                    e.FirstName,
+                    e.LastName,
+                    e.JobTitle,
+                    e.Salary
+                })
+                .Where(e => e.FirstName.ToLower().StartsWith("sa"))
+                .OrderBy(e=>e.FirstName)
+                .ThenBy(e=>e.LastName)
+                .ToList();
+
+            foreach(var e in employees)
+            {
+                output.AppendLine($"{e.FirstName} {e.LastName} - {e.JobTitle} - (${e.Salary:f2})");
+            }
+
+
+            return output.ToString().TrimEnd();
+        }
+
+        public static string DeleteProjectById(SoftUniContext context)
+        {
+            StringBuilder output = new StringBuilder();
+
+            var project = context.Projects.First(p => p.ProjectId == 2);
+
+            context.EmployeeProjects.ToList().ForEach(ep => context.EmployeeProjects.Remove(ep));
+            context.Projects.Remove(project);
+
+            context.SaveChanges();
+
+
+            context.SaveChanges();
+
+            // It's a void method :(
+            //output.AppendLine(context.Projects.Select(p => p.Name).Take(10).ToList().ForEach(p => string.Join(Environment.NewLine,p));
+            var projects = context.Projects.Select(p => p.Name).Take(10).ToList();
+            foreach (var p in projects)
+            {
+                output.AppendLine($"{p}");
+            }
             return output.ToString().TrimEnd();
         }
     }
