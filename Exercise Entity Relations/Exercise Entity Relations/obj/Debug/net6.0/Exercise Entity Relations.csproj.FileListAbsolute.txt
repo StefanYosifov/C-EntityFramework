@@ -1,0 +1,15 @@
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\bin\Debug\net6.0\Exercise Entity Relations.exe
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\bin\Debug\net6.0\Exercise Entity Relations.deps.json
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\bin\Debug\net6.0\Exercise Entity Relations.runtimeconfig.json
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\bin\Debug\net6.0\Exercise Entity Relations.dll
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\bin\Debug\net6.0\Exercise Entity Relations.pdb
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\Exercise Entity Relations.csproj.AssemblyReference.cache
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\Exercise Entity Relations.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\Exercise Entity Relations.AssemblyInfoInputs.cache
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\Exercise Entity Relations.AssemblyInfo.cs
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\Exercise Entity Relations.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\Exercise Entity Relations.dll
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\refint\Exercise Entity Relations.dll
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\Exercise Entity Relations.pdb
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\Exercise Entity Relations.genruntimeconfig.cache
+C:\Users\Stefan\Desktop\C# EntityFramework\Exercise Entity Relations\Exercise Entity Relations\obj\Debug\net6.0\ref\Exercise Entity Relations.dll
