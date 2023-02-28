@@ -1,15 +1,27 @@
 ﻿namespace P02_FootballBetting.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Game
     {
+        public Game()
+        {
+            this.PlayerStatistics = new HashSet<PlayerStatistic>();
+            this.Bets = new HashSet<Bet>();
+        }
 
         public int GameId { get; set; }
 
-        public int HomeId { get; set; }
+        [ForeignKey(nameof(HomeTeam))]
+        public int HomeTeamId { get; set; }
 
+        public virtual Team HomeTeam { get; set; }
+
+        [ForeignKey(nameof(AwayTeam))]
         public int AwayTeamId { get; set; }
+
+        public virtual Team AwayTeam { get; set; }
 
         public int HomeTeamGoals { get; set; }
 
@@ -27,5 +39,9 @@
         [Required]
         [MaxLength(7)]
         public string? Result { get; set; }
+
+        public virtual ICollection<PlayerStatistic> PlayerStatistics { get; set; }
+
+        public virtual ICollection<Bet> Bets { get; set; }
     }
 }

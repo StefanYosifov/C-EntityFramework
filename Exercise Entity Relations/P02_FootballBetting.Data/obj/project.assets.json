@@ -631,6 +631,16 @@
             "rid": "win"
           }
         }
+      },
+      "P02_FootballBetting.Data.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/P02_FootballBetting.Data.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/P02_FootballBetting.Data.Models.dll": {}
+        }
       }
     }
   },
@@ -1850,12 +1860,18 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "P02_FootballBetting.Data.Models/1.0.0": {
+      "type": "project",
+      "path": "../P02_FootballBetting.Data.Models/P02_FootballBetting.Data.Models.csproj",
+      "msbuildProject": "../P02_FootballBetting.Data.Models/P02_FootballBetting.Data.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.1",
-      "Microsoft.EntityFrameworkCore.Tools >= 6.0.1"
+      "Microsoft.EntityFrameworkCore.Tools >= 6.0.1",
+      "P02_FootballBetting.Data.Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1884,7 +1900,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Stefan\\Desktop\\C# EntityFramework\\Exercise Entity Relations\\P02_FootballBetting.Data.Models\\P02_FootballBetting.Data.Models.csproj": {
+              "projectPath": "C:\\Users\\Stefan\\Desktop\\C# EntityFramework\\Exercise Entity Relations\\P02_FootballBetting.Data.Models\\P02_FootballBetting.Data.Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
