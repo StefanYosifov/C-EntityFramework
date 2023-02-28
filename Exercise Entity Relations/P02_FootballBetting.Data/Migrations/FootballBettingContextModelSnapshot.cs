@@ -69,7 +69,7 @@ namespace P02_FootballBetting.Data.Migrations
 
                     b.HasKey("ColorId");
 
-                    b.ToTable("Color");
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("P02_FootballBetting.Data.Models.Country", b =>
@@ -87,7 +87,7 @@ namespace P02_FootballBetting.Data.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("P02_FootballBetting.Data.Models.Game", b =>
@@ -133,7 +133,7 @@ namespace P02_FootballBetting.Data.Migrations
 
                     b.HasIndex("HomeTeamId");
 
-                    b.ToTable("Game");
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("P02_FootballBetting.Data.Models.Player", b =>
@@ -172,7 +172,7 @@ namespace P02_FootballBetting.Data.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Player");
+                    b.ToTable("Players");
                 });
 
             modelBuilder.Entity("P02_FootballBetting.Data.Models.PlayerStatistic", b =>
@@ -196,7 +196,7 @@ namespace P02_FootballBetting.Data.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("PlayerStatistic");
+                    b.ToTable("PlayersStatistics");
                 });
 
             modelBuilder.Entity("P02_FootballBetting.Data.Models.Position", b =>
@@ -214,7 +214,7 @@ namespace P02_FootballBetting.Data.Migrations
 
                     b.HasKey("PositionId");
 
-                    b.ToTable("Position");
+                    b.ToTable("Positions");
                 });
 
             modelBuilder.Entity("P02_FootballBetting.Data.Models.Team", b =>
@@ -260,7 +260,7 @@ namespace P02_FootballBetting.Data.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Team");
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("P02_FootballBetting.Data.Models.Town", b =>
@@ -283,7 +283,7 @@ namespace P02_FootballBetting.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Town");
+                    b.ToTable("Towns");
                 });
 
             modelBuilder.Entity("P02_FootballBetting.Data.Models.User", b =>
@@ -319,7 +319,7 @@ namespace P02_FootballBetting.Data.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("P02_FootballBetting.Data.Models.Bet", b =>
@@ -346,13 +346,13 @@ namespace P02_FootballBetting.Data.Migrations
                     b.HasOne("P02_FootballBetting.Data.Models.Team", "AwayTeam")
                         .WithMany("AwayGames")
                         .HasForeignKey("AwayTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("P02_FootballBetting.Data.Models.Team", "HomeTeam")
                         .WithMany("HomeGames")
                         .HasForeignKey("HomeTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("AwayTeam");
@@ -405,13 +405,13 @@ namespace P02_FootballBetting.Data.Migrations
                     b.HasOne("P02_FootballBetting.Data.Models.Color", "PrimaryKitColor")
                         .WithMany("PrimaryKitTeams")
                         .HasForeignKey("PrimaryKitColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("P02_FootballBetting.Data.Models.Color", "SecondaryKitColor")
                         .WithMany("SecondaryKitTeams")
                         .HasForeignKey("SecondaryKitColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("P02_FootballBetting.Data.Models.Town", "Town")
