@@ -23,8 +23,8 @@
         public bool IsInjured { get; set; }
 
         [ForeignKey(nameof(Team))]
-        public int? TeamId { get; set; }
-        public virtual Team? Team { get; set; }
+        public int TeamId { get; set; }
+        public virtual Team Team { get; set; }
 
         [ForeignKey(nameof(Position))]
         public int PositionId { get; set; }
