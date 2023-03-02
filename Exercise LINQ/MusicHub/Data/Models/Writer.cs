@@ -16,6 +16,8 @@
         [MaxLength(ValidationConstants.WriterNamesMaxLength)]
         public string Name { get; set; } = null!;
 
+        public string? Pseudonym { get; set; }
+
         public virtual ICollection<Song> Songs { get; set; }
 
     }
