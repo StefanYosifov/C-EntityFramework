@@ -65,6 +65,8 @@
             //15
             IncreasePrices(db);
 
+            int deletedBookCount=RemoveBooks(db);
+            Console.WriteLine(deletedBookCount);
 
         }
 
@@ -350,9 +352,22 @@
             //maybe put it inside the loop
             context.SaveChanges();
         }
-                                    
-                                    
-                                    
+
+        public static int RemoveBooks(BookShopContext context)
+        {
+            var booksToDelete = context.Books.Where(b => b.Copies < 4200).ToArray();
+            int booksDeleteCount = 0;
+            foreach(var book in booksToDelete)
+            {
+                context.Remove(book);
+                booksDeleteCount++;
+                context.SaveChanges();
+            }
+
+            return booksDeleteCount;
+        }
+
+
     }                               
 }                                   
                                     
