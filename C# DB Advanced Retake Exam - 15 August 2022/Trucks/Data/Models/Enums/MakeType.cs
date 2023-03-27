@@ -1,15 +1,12 @@
 ﻿namespace Trucks.Data.Models.Enums
 {
-
-
     public enum MakeType
     {
-
-        Daf=1, 
-        Man=2, 
-        Mercedes=3,
-        Scania=4, 
-        Volvo=5,
+        Daf=0,
+        Man=1, 
+        Mercedes=2, 
+        Scania=3, 
+        Volvo=4,
 
     }
 }

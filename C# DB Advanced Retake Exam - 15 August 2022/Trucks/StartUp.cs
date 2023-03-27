@@ -15,15 +15,13 @@
         {
             var context = new TrucksContext();
 
-            Mapper.Initialize(config => config.AddProfile<TrucksProfile>());
-
-            ResetDatabase(context, shouldDropDatabase: true);
+            ResetDatabase(context, shouldDropDatabase: false);
 
             var projectDir = GetProjectDirectory();
 
             ImportEntities(context, projectDir + @"Datasets/", projectDir + @"ImportResults/");
 
-            ExportEntities(context, projectDir + @"ExportResults/");
+            //ExportEntities(context, projectDir + @"ExportResults/");
 
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -53,7 +51,6 @@
             File.WriteAllText(exportDir + "Actual Result - ExportDespatchersWithTheirTrucks.xml", ExportDespatchersWithTheirTrucks);
 
             int tankCapacity = 1000;
-            //DateTime dateTime = DateTime.ParseExact("31/03/2020", "dd/MM/yyyy", CultureInfo.InvariantCulture);
             var ExportClientsWithMostTrucks = DataProcessor.Serializer.ExportClientsWithMostTrucks(context, tankCapacity);
             Console.WriteLine(ExportClientsWithMostTrucks);
             File.WriteAllText(exportDir + "Actual Result - ExportClientsWithMostTrucks.json", ExportClientsWithMostTrucks);
@@ -72,18 +69,18 @@
             }
 
             var disableIntegrityChecksQuery = "EXEC sp_MSforeachtable @command1='ALTER TABLE ? NOCHECK CONSTRAINT ALL'";
-            context.Database.ExecuteSqlCommand(disableIntegrityChecksQuery);
+            context.Database.ExecuteSqlRaw(disableIntegrityChecksQuery);
 
             var deleteRowsQuery = "EXEC sp_MSforeachtable @command1='SET QUOTED_IDENTIFIER ON;DELETE FROM ?'";
-            context.Database.ExecuteSqlCommand(deleteRowsQuery);
+            context.Database.ExecuteSqlRaw(deleteRowsQuery);
 
             var enableIntegrityChecksQuery =
                 "EXEC sp_MSforeachtable @command1='ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL'";
-            context.Database.ExecuteSqlCommand(enableIntegrityChecksQuery);
+            context.Database.ExecuteSqlRaw(enableIntegrityChecksQuery);
 
             var reseedQuery =
                 "EXEC sp_MSforeachtable @command1='IF OBJECT_ID(''?'') IN (SELECT OBJECT_ID FROM SYS.IDENTITY_COLUMNS) DBCC CHECKIDENT(''?'', RESEED, 0)'";
-            context.Database.ExecuteSqlCommand(reseedQuery);
+            context.Database.ExecuteSqlRaw(reseedQuery);
         }
 
         private static void PrintAndExportEntityToFile(string entityOutput, string outputPath)
@@ -96,7 +93,7 @@
         {
             var currentDirectory = Directory.GetCurrentDirectory();
             var directoryName = Path.GetFileName(currentDirectory);
-            var relativePath = directoryName.StartsWith("netcoreapp") ? @"../../../" : string.Empty;
+            var relativePath = directoryName.StartsWith("net6.0") ? @"../../../" : string.Empty;
 
             return relativePath;
         }

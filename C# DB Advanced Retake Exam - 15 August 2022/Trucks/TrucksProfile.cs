@@ -9,9 +9,7 @@
         // Configure your AutoMapper here if you wish to use it. If not, DO NOT DELETE OR RENAME THIS CLASS
         public TrucksProfile()
         {
-
-            this.CreateMap<ImportClientDto, Client>()
-                .ForSourceMember(s => s.Trucks, opt => opt.DoNotValidate());
+      
 
         }
     }

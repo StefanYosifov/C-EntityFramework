@@ -5,19 +5,19 @@
 
     public class TrucksContext : DbContext
     {
-        public TrucksContext() { }
+        public TrucksContext()
+        { 
+        }
 
         public TrucksContext(DbContextOptions options)
-            : base(options) { }
-
+            : base(options) 
+        { 
+        }
 
         public DbSet<Client> Clients { get; set; }
-
-        public DbSet<ClientTruck> ClientsTrucks { get; set; }
-
-        public DbSet<Despatcher> Despatchers { get; set; }
-
         public DbSet<Truck> Trucks { get; set; }
+        public DbSet<Despatcher> Despatchers { get; set; }
+        public DbSet<ClientTruck> ClientsTrucks { get; set; }
 
 
 
@@ -33,10 +33,10 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-
-            modelBuilder.Entity<ClientTruck>(entity => 
+            modelBuilder.Entity<ClientTruck>().HasKey(e => new
             {
-                entity.HasKey(e => new { e.TruckId, e.ClientId });
+                e.TruckId,
+                e.ClientId
             });
 
         }

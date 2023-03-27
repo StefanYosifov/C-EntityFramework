@@ -1,30 +1,26 @@
 ﻿namespace Trucks.DataProcessor.ImportDto
 {
-    using Newtonsoft.Json;
     using System.ComponentModel.DataAnnotations;
-    using Trucks.Common;
-    using Trucks.Data.Models;
+    using Trucks.Shared;
 
     public class ImportClientDto
     {
-        [MinLength(ValidationConstants.ClientNameMinLength)]
-        [MaxLength(ValidationConstants.ClientNameMaxLength)]
-        [JsonProperty(nameof(Name))]
-        public string Name { get; set; }
 
+        [Required]
+        [MinLength(GlobalConstants.ClientNameMinLength)]
+        [MaxLength(GlobalConstants.ClientNameMaxLength)]
 
-        [MinLength(ValidationConstants.ClientNationalityMinLength)]
-        [MaxLength(ValidationConstants.ClientNationalityMaxLength)]
-        [JsonProperty(nameof(Nationality))]
+        public string Name { get; set; } 
 
-        public string Nationality { get; set; }
+        [Required]
+        [MinLength(GlobalConstants.ClientNationalityMinLength)]
+        [MaxLength(GlobalConstants.ClientNationalityMaxLength)]
+        public string Nationality { get; set; } = null!;
 
-        [JsonProperty(nameof(Type))]
-        public string Type { get; set; }
+        [Required]
+        public string Type { get; set; } = null!;
 
-
-        [JsonProperty(nameof(Trucks))]
-        public Truck[] Trucks { get; set; }
+        public int[] Trucks { get; set; }
 
     }
 }

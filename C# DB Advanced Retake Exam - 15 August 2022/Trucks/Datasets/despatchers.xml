@@ -906,7 +906,7 @@
 		<Position>Forwarder</Position>
 		<Trucks>
 			<Truck>
-				<RegistrationNumber>CT9045HMH</RegistrationNumber>
+				<RegistrationNumber>CT9045HMH</RegistrationNumber> 
 				<VinNumber>WDB96341611356145</VinNumber>
 				<TankCapacity>990</TankCapacity>
 				<CargoCapacity>28399</CargoCapacity>

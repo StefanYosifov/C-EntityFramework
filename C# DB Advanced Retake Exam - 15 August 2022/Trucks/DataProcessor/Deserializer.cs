@@ -1,14 +1,12 @@
 ﻿namespace Trucks.DataProcessor
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
     using System.Text;
-    using AutoMapper;
+    using System.Xml.Serialization;
     using Data;
     using Newtonsoft.Json;
     using Trucks.Data.Models;
+    using Trucks.Data.Models.Enums;
     using Trucks.DataProcessor.ImportDto;
 
     public class Deserializer
@@ -23,48 +21,119 @@
 
         public static string ImportDespatcher(TrucksContext context, string xmlString)
         {
-            return "";
-        }
-        public static string ImportClient(TrucksContext context, string jsonString)
-        {
             StringBuilder sb = new StringBuilder();
-            
-            ImportClientDto[] clientDtos = JsonConvert.DeserializeObject<ImportClientDto[]>(jsonString);
+            string rootElement = "Despatchers";
 
-            ICollection<Client> clients = new HashSet<Client>();
-            ICollection<Truck> trucks = new HashSet<Truck>();
+            ImportDespatchersDto[] despatchersDtos = DeserializeXml<ImportDespatchersDto>(xmlString, rootElement);
 
-            foreach(var client in clientDtos)
+            ICollection<Despatcher> despatchers = new HashSet<Despatcher>();
+
+            foreach(var despatcher in despatchersDtos)
             {
-                if (IsValid(client))
+                if (!IsValid(despatcher))
                 {
                     sb.AppendLine(ErrorMessage);
                     continue;
                 }
-                foreach(var truck in trucks.Distinct())
+                if (string.IsNullOrWhiteSpace(despatcher.Position))
                 {
-                    if (context.Trucks.Any(ct => ct.Id != truck.Id))
+                    sb.AppendLine(ErrorMessage);
+                    continue;
+                }
+
+                Despatcher validDespatcher = new Despatcher()
+                {
+                    Name = despatcher.Name,
+                    Position = despatcher.Position,
+                };
+
+                foreach(var truck in despatcher.Trucks)
+                {
+                    if (!IsValid(truck))
                     {
                         sb.AppendLine(ErrorMessage);
                         continue;
                     }
-                    
-                    trucks.Add(truck);
+                    Truck validTruck = new Truck()
+                    {
+                        RegistrationNumber = truck.RegistrationNumber,
+                        VinNumber = truck.VinNumber,
+                        TankCapacity = truck.TankCapacity,
+                        CargoCapacity = truck.CargoCapacity,
+                        CategoryType = (CategoryType)truck.CategoryType,
+                        MakeType = (MakeType)truck.MakeType,
+                    };
+                    validDespatcher.Trucks.Add(validTruck);
                 }
-                Client validClient=Mapper.Map<Client>(client);
-                clients.Add(validClient);
-                sb.AppendLine(String.Format(SuccessfullyImportedClient,client.Name,client.Trucks.Count()));
+                despatchers.Add(validDespatcher);
+                sb.AppendLine(string.Format(SuccessfullyImportedDespatcher, validDespatcher.Name, validDespatcher.Trucks.Count));
             }
-
-            context.AddRange(clients);
+            context.Despatchers.AddRange(despatchers);
             context.SaveChanges();
             return sb.ToString().Trim();
 
         }
 
+        public static T[] DeserializeXml<T>(string xmlString,string rootElement)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T[]),new XmlRootAttribute(rootElement));
+            using var stringReader = new StringReader(xmlString);
+
+            return (T[])xmlSerializer.Deserialize(stringReader);
+        }
+
+        public static string ImportClient(TrucksContext context, string jsonString)
+        {
+            StringBuilder sb = new StringBuilder();
+            ImportClientDto[] ClientDtos=JsonConvert.DeserializeObject<ImportClientDto[]>(jsonString);
+
+            ICollection<Client> validClients = new HashSet<Client>();
+
+            foreach(var clientDto in ClientDtos)
+            {
+                if (!IsValid(clientDto))
+                {
+                    sb.AppendLine(ErrorMessage);
+                    continue;
+                }
+                if (clientDto.Type == "usual")
+                {
+                    sb.AppendLine(ErrorMessage);
+                    continue;
+                }
+
+                Client validClient = new Client()
+                {
+                    Name = clientDto.Name,
+                    Nationality = clientDto.Nationality,
+                    Type = clientDto.Type,
+                };
+
+                foreach(var truckId in clientDto.Trucks.Distinct())
+                {
+                    var truck = context.Trucks.Find(truckId);
+                    if (truck==null)
+                    {
+                        sb.AppendLine(ErrorMessage);
+                        continue;
+                    }
+                    validClient.ClientsTrucks.Add(new ClientTruck()
+                    {
+                        Truck = truck
+                    });
+                }
+                validClients.Add(validClient);
+                sb.AppendLine(string.Format(SuccessfullyImportedClient, validClient.Name, validClient.ClientsTrucks.Count));
+
+            }
+            context.Clients.AddRange(validClients);
+            context.SaveChanges();
+            return sb.ToString().Trim();
+        }
+
         private static bool IsValid(object dto)
         {
-            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(dto);
+            var validationContext = new ValidationContext(dto);
             var validationResult = new List<ValidationResult>();
 
             return Validator.TryValidateObject(dto, validationContext, validationResult, true);

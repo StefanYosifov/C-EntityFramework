@@ -1,12 +1,11 @@
-﻿using Trucks.Common;
-
-namespace Trucks.Data.Models
+﻿namespace Trucks.Data.Models
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Trucks.Shared;
 
     public class Client
     {
+
         public Client()
         {
             this.ClientsTrucks = new HashSet<ClientTruck>();
@@ -15,14 +14,18 @@ namespace Trucks.Data.Models
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(ValidationConstants.ClientNameMaxLength)]
-        public string Name { get; set; }
+        [Required]
+        [MaxLength(GlobalConstants.ClientNameMaxLength)]
+        public string Name { get; set; } = null!;
 
-        [MaxLength(ValidationConstants.ClientNationalityMaxLength)]
-        public string Nationality { get; set; }
+        [Required]
+        [MaxLength(GlobalConstants.ClientNationalityMaxLength)]
+        public string Nationality { get; set; } = null!;
 
-        public string Type { get; set; }
+        [Required]
+        public string Type { get; set; } = null!;
 
-        public virtual ICollection<ClientTruck> ClientsTrucks  { get;set; }
+
+        public virtual ICollection<ClientTruck> ClientsTrucks { get; set; }
     }
 }
