@@ -10,7 +10,12 @@
         public ArtilleryProfile()
         {
 
-            this.CreateMap<ImportCountryDto,Country>
+            this.CreateMap<ImportCountryDto, Country>();
+            this.CreateMap<ImportManufacturerDto, Manufacturer>();
+            this.CreateMap<ImportShellDto, Shell>();
+            this.CreateMap<ImportGunsDto, Gun>();
+                   //.ForMember(dest => dest.CountriesGuns, opt => opt.MapFrom(d => d.Countries));
+                //.ForSourceMember(d => d.Countries, opt => opt.DoNotValidate());
 
         }
     }
