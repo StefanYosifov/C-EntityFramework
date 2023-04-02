@@ -1,0 +1,26 @@
+﻿namespace Boardgames.Data.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    public class BoardgameSeller
+    {
+        [Required]
+        [ForeignKey(nameof(Boardgame))]
+        public int BoardgameId  { get; set; }
+
+        public Boardgame Boardgame { get; set; } = null!;
+
+
+        [Required]
+        [ForeignKey(nameof(Seller))]
+        public int SellerId { get; set; }
+
+        public Seller Seller { get; set; } = null!;
+    }
+}
