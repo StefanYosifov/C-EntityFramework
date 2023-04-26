@@ -63,7 +63,7 @@
             //Console.WriteLine(GetMostRecentBooks(db));
 
             //15
-            IncreasePrices(db);
+            //IncreasePrices(db);
 
             int deletedBookCount=RemoveBooks(db);
             Console.WriteLine(deletedBookCount);
